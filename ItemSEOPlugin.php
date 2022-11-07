@@ -117,11 +117,9 @@ class ItemSEOPlugin extends Omeka_Plugin_AbstractPlugin
     */
     public function hookPublicHead($args){
         if(is_current_url('/items/show')){
-            $record = $args['view']->item;
-            if($canonical_url = metadata($record,array('Item SEO', 'Canonical URL'))){
-                echo '
-                <link rel="canonical" href="'.$canonical_url.'"/>
-                ';   
+            $record = $args['view']->getCurrentRecord('item');
+            if($record && ($canonical_url = metadata($record,array('Item SEO', 'Canonical URL')))){
+                echo '<link rel="canonical" href="'.$canonical_url.'"/>';
             }
         }
     }
